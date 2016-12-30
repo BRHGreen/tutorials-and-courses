@@ -34,7 +34,7 @@
                 )
             },
             renderDisplay() {
-                return ( 
+                return (
                     <div className="note">
                         <p>{this.props.children}</p>
                         <span>
@@ -56,7 +56,7 @@
                 count: function(props, propName) {
                     if(typeof props[propName] !== "number") {
                         return new Error("the count must be a number")
-                    } 
+                    }
 
                     if(props[propName] > 100) {
                         return new Error('Creating ' + props[propName] + ' notes is ridiculous')
@@ -69,13 +69,10 @@
                     </div>)
             }
         })
-        
-        ReactDOM.render(<Board count={5000}/>, 
+
+        ReactDOM.render(<Board count={5000}/>,
             document.getElementById('react-container'))
 
         </script>
     </body>
 </html>
-
-
-

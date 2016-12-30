@@ -13,6 +13,7 @@
 - Adding React to your code: The simplest way to do this is to go to https://facebook.github.io/react/docs/installation.html and copy and paste the two script tags under the "Using CDN" heading. These are the production files with whitespace and comments.
 - To render content with react we need to create script tags (or a JS file) and invoke the `ReactDOM.render()` function. This takes two arguments. The first is what we want to create and the second is where we want to put it.
 e.g:
+
 ```
 ReactDOM.render(
   React.createElement("div", null, "Hello World"),
@@ -20,6 +21,7 @@ ReactDOM.render(
   );
 ```
 - This is all well and good when we are not creating a lot of elements but if you were to create an unordered list with several list items it would get very messy. It might look something like this:
+
 ```
 ReactDOM.render(
   React.createElement("ul", null,
@@ -44,6 +46,7 @@ So good old Zuckerberg gave us JSX so we could deal with it. It's basically JS i
 `class MyComponent = extends React.component {//code goes here}`
 
 1. createClass:
+
 ```
 var MyComponent = React.createClass({
   render() {
@@ -56,6 +59,7 @@ var MyComponent = React.createClass({
 ```
 
 2. Using ES6 classes:
+
 ```
 class MyComponent extends React.Component {
   render() {
@@ -68,6 +72,7 @@ class MyComponent extends React.Component {
 ```
 
 3. Using stateless functional component:
+
 ```
 const MyComponent = () => {
   render() {
@@ -79,18 +84,20 @@ const MyComponent = () => {
 }
 ```
 All of these functions will return the JSX specified in the `render` function but for all the aforementioned syntaxes you will need to use the `.render` method on the ReactDOM like so:
+
 ```
 ReactDOM.render(<MyComponent />,
     document.getElementById('react-container'))
 ```
 **note:** it is worth mentioning a couple of things.
-Firstly, when creating a component you *have to* put the opening JSX tag in the `render` function on the same line as the `return`
+Firstly, when creating a component you *have to* put the opening JSX tag in the `render` function on the same line as the `return`. It is best practice to put the elements which you want to render in parentheses (this is mentioned in section 4.2).
 Secondly, These will not create elements. You need an existing element for the `render` method used on the ReactDOM to read and write to. In aforementioned it is a div with the id 'react-container'.
 
 
 ###4.Props and State
 - This is where we come to use React for dynamic content. Instead of writing out the JSX we'll be rendering in the function where we create the component, we can just grab the data using `{this.props.text}`.
 Those two arguments which the `ReactDOM.render()` method takes, i.e. what it will render followed by where it will render it, the first argument will now be the JSX instead of the const or var `MyComponent`. Also note React always wants to render one element so we'll have to wrap our content in a div Like so:
+
 ```
 ReactDOM.render(<div>
   <MyComponent text="Hello World"/>
@@ -99,4 +106,63 @@ ReactDOM.render(<div>
   </div>,
     document.getElementById('react-container'))
 ```
-  
+- Now we can also use `{this.props.children}`. So far we have used a self closing tag within the JSX. If we use a separate closing tag we can then access the children within this element. For example:
+
+```
+ReactDOM.render(<div>
+  <MyComponent text="Hello World">
+  Yo
+  </MyComponent>
+  <MyComponent text="Ahoy World">
+  Righto
+  </MyComponent>
+  <MyComponent text="Hey, World, is that you? World? ....hello?">
+  Crumbs
+  </MyComponent>
+  </div>,
+    document.getElementById('react-container'))
+```
+Now we can use the `{this.props.children}` to render the content between the MyComponent tags.
+
+####Handling events 04_02
+- You have to treat JSX differently to html. For example when you want to give a JSX element a class name you would use this syntax: `<div className="note">`
+
+- As well as returning content to render with in the React Class we can also add functions. For example, here we have a button with an event listener on it. It be part of the JSX which will be returned in the `render` section:
+`<button onClick={this.edit}>EDIT</button>`
+We have also put a function (or method maybe?) called `edit` within in the same class: `edit() {alert("Editing Note")}` so when we hit the edit button this function is invoked.
+
+####Using states 04_03
+- We're going to make a checkbox which has two states (obviously). This is the JSX we'll be returning:
+
+```
+<input type="checkbox"
+        onChange={this.handleCheck}
+        defaultChecked={this.state.checked}/>
+<p>This box is {msg}</p>
+```
+Within the same class we have methods various methods (check the code in 04_03) which are being invoked when box is checked. We also have dynamic content within the <p> which changes depending on the state of the checkbox.
+
+####Adding State to the note component 04_04
+- In this lesson (check code in 04_04 directory) we did some refactoring and added 'states'. Essentially code has been divided into different methods which render different JSX depending on which methods are invoked. These methods are attached to event listeners on the buttons.
+- In the following lesson we are going to add some functionality which will actually allow us to edit the text displaying on the note.
+
+####Using refs 04_05
+- The new key word here is `refs`. Essentially it allows us to access the value in UI elements so when the user makes changes to a note and hits 'save' we will actually be able to update the content in the text area on the note.
+- basically if you cannot access the value of a DOM node using `props` or `state` then `refs` may be what you need.
+
+####PropTypes 04_06
+- Prop types are great. They let you do error handling, tell the user if they have failed to fill out a required field etc. Essentially you achieve this by making an object called `propTypes` in your React class in which you put your conditional statements for what datatypes you're expecting.
+- PropTypes are optional but they are obviously a good idea as checking for datatypes lessens the chance of your app breaking.
+
+####Adding Child Elements 04_07
+- The codebase is starting to get long-ish now. We still have just one div in the HTML to which we are adding all of our content. We have two React classes, one for the notes and one for the board. Next up is getting a bunch of notes with different content appearing on our board.
+- Within the board class we have added a `getInitialState` method inside of which we have an array with the text which we will be displaying on the notes. This'll mean we have access to this in the initail state (surprizingz?)
+- What we do here is a similar concept to ng-repeat. In React we do this with a `map` method. This is what is returned in the render method:
+
+```
+<div className='board'>
+{this.state.notes.map((note, i) => {
+  return <Note key={i}>{note}</Note>
+})}
+</div>
+```

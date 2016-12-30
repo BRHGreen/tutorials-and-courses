@@ -11,6 +11,7 @@
         <script type="text/babel">
 
         var Checkbox = React.createClass({
+
             getInitialState() {
                 return {checked: true}
             },
@@ -25,19 +26,15 @@
                     msg = "unchecked"
                 }
                 return ( <div>
-                        <input type="checkbox" 
+                        <input type="checkbox"
                                onChange={this.handleCheck}
                                defaultChecked={this.state.checked}/>
                         <p>This box is {msg}</p>
                     </div>)
             }
         })
-        ReactDOM.render(<Checkbox/>, 
+        ReactDOM.render(<Checkbox/>,
             document.getElementById('react-container'))
         </script>
     </body>
 </html>
-
-
-
-
