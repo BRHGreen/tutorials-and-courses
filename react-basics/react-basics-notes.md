@@ -166,3 +166,75 @@ Within the same class we have methods various methods (check the code in 04_03) 
 })}
 </div>
 ```
+- Note: the map method in React calls the function for each element in an array.
+
+###Enhancing Components
+
+####Updating and removing notes 05_01
+- In this section we are going to make the notes into an array of objects
+rather than just an array of strings
+
+**this is tricky. You must revise**
+
+####Adding new notes 05_02
+
+####Keys 05_03
+- When rendering our note components we pass a key property to out component when it is part on an array of children, this is passed in the JSX in the render function:
+
+```
+eachNote(note) {
+    return (<Note key={note.id}
+                  id={note.id}
+                  onChange={this.update}
+                  onRemove={this.remove}>
+              {note.note}
+            </Note>)
+}
+```
+Our board is the parent and it's note children all contain this key property.
+If we do note include the key property here then when we add a note we'll get an error. This is because the key is a unique ID for that array element and the browser needs to keep track of these.
+
+####Component lifecycle (no code for this one)
+- The component lifecycle provides hooks for creation, lifetime and teardown components. These are methods and they allow you to add libraries, load data, and a bunch of other stuff, at very specific times.
+
+*We have used some mounting methods already:*
+1. getInitialState - Will be called once and will set the default state.
+2. componentWillMount - It is the last chance to effect the component before the render.
+3. Render - It is the only required method. Cue is in the name.
+4. ComponentDidMount - Will be fired after the render.
+
+*Updating methods:*
+1. componentWillReceiveProps - once called we will be able to change the object and effect state.
+2. shouldComponentUpdate, componentWillUpdate - invoked right before rendering and are often used for optimisation. We only call them if something has changed.
+3. render - (again) part of the updating lifecycle
+4. componentDidUpdate - fires right after the DOM has been updated.
+
+- componentWillUnmount - called right before the component is unmounted. Helps us clean up DOM elements and invalidate timers.
+
+####Mounting components 05_05
+- As we found out in the previous lesson, lifecycle methods make it easy for us to interact  with the DOM at specific points in time. So if you want to stop the page loading until the user has, say, clicked on a dialogue box or you want to remove elements from the DOM when they are clicked this is all super easy.
+
+####Setting properties 05_06
+- Essentially you can set your styling of element to methods  within the React Class. The advantage of doing this over using CSS is that you can apply and reuse styling on elements which don't share classes or id's (not that you would EVER give more than one element the same ID)
+
+####Updating components 05_07
+- Just a bunch more lifecycle stuff. See code for deetz.
+
+####Adding lifecycle methods to the bulletin board 05_08
+- Loads of stuff here. It's worth noting that we used an API, so that's nice, and also added the React draggable library.
+- React draggable is actually really easy to use:
+1. Identify what it is you want to drag and where in the code this element is returned. In this case it the point where the note is rendered.
+2. Wrap the everything which will be returned `<ReactDraggable>` tags
+3. now wrap everything, including the tags, in parentheses.
+4. now put braces around the expression (but inside the tags)
+....should work.
+
+####Using create-react-app
+- The way we created this app is pretty old school. We can use NPM to install create-react-app globally. We then run the command
+`create-react-app name-of-app` and it'll run everything we need in order to get started with a React project.
+- Once this is done we `cd` into the directory which has been created for us (obviously this has the name of the app you passed into the build command) and run `npm start`. This'll run the app on localhost 3000.
+- So as expected this pretty much includes everything you need to build an app. It also allows you use a `npm run build` command which gives you a production ready build (minifies your code etc)
+
+**Check out Flux. It the good people at React recommend it as an alternative to the MVC structure**
+
+**Also check out React Native. It'll only bloody build you a mobile app**
