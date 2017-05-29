@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>React tutorial</title>
+    <script src="https://fb.me/react-0.14.7.js"></script>
+    <script src="https://fb.me/react-dom-0.14.7.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="lesson5challengestyling.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+
+    var CounterChallenge = React.createClass({
+      getInitialState: function() {
+        return {
+          count: 0
+        }
+      },
+      incrementCount(value) {
+        console.log(this);
+        this.setState({
+          count: this.state.count + value
+        })
+      },
+      //This is the refactored version of the counter CounterChallenge. You can pass in a different value for each button you make by using the `.bind` method. This means you can call the same function on each event rather than three different functions.
+      render: function() {
+        return (
+          <div className="container">
+            <h1>Count: {this.state.count}</h1>
+            <button className="btn blue-btn" onClick={this.incrementCount.bind(this, 1)}>Add 1</button>
+            <button className="btn green-btn" onClick={this.incrementCount.bind(this, 5)}>Add 5</button>
+            <button className="btn purple-btn" onClick={this.increment.bind(this, 10)}>Add 10</button>
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <CounterChallenge />,
+      document.getElementById('app')
+    );
+    </script>
+  </body>
+</html>

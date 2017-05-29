@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>React tutorial</title>
+  <script src="https://fb.me/react-0.14.7.js"></script>
+  <script src="https://fb.me/react-dom-0.14.7.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.38/browser.js"></script>
+  <link rel="stylesheet" type="text/css" href="lesson10styling.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+  class Counter extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { count: 0 }
+    }
+    incrementCount(value) {
+      this.setState({
+      count: this.state.count + value
+      })
+    }
+
+    render() {
+      return (
+        <div className='container'>
+        <h1>{this.state.count}</h1>
+          <Button className="btn" text={`${this.props.text} ${this.props.valueOne}`} value={this.props.valueOne} clickHandler={this.incrementCount.bind(this, this.props.valueOne)} />
+          <Button className="btn" text={`${this.props.text} ${this.props.valueTwo}`} value={this.props.valueTwo} clickHandler={this.incrementCount.bind(this, this.props.valueTwo)}/>
+          <Button className="btn" text={`${this.props.text} ${this.props.valueThree}`} value={this.props.valueThree} clickHandler={this.incrementCount.bind(this, this.props.valueThree)}/>
+        </div>
+      )
+    }
+  }
+
+  Counter.defaultProps = {
+    valueOne: 1,
+    valueTwo: 5,
+    valueThree: 10,
+    text: "Increase by"
+  }
+
+  const Button = (props) => {
+    return (
+      <button className={props.style} value={props.value} onClick={props.clickHandler}>{props.text}</button>
+    )
+  };
+
+  ReactDOM.render(<Counter />, document.getElementById('app'))
+  </script>
+</body>
+</html>
