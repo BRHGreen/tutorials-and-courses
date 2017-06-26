@@ -1,0 +1,26 @@
+.btn {
+  height: 50px;
+  width: 100px;
+}
+
+.btn-blue {
+  background-color: blue;
+}
+
+.container {
+  height: 300px;
+  width: 300px;
+  border: 1px solid #1100ff;
+  margin: 0 auto;
+  text-align: center;
+}
+.container > button {
+  margin-top: 250px;
+  position: relative;
+  bottom: 0;
+}
+
+.textInput {
+  height: 50px;
+  width: 200px;
+}
