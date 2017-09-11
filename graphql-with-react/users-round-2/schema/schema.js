@@ -29,14 +29,18 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     user: {
       type: UserType,
+      //here we are saying that if you are looking for a user and you provide an ID we'll go grab it for you and return a string
       args: { id: { type: GraphQLString } },
-      resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/users/${args.id}`)
+      //The resolve function is then called and tries to return your info
+      //parentValue: not really used a lot, just whack it in
+      //args: should return the populated data specified in the args value
+      resolve (parentValue, args) {
+        return  axios.get(`http://localhost:3000/users/${args.id}`)
           .then(resp => resp.data)
       }
     }
   }
-});
+})
 
 module.exports = new GraphQLSchema({
   query: RootQuery
