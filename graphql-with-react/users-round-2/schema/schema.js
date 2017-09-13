@@ -2,7 +2,6 @@ const axios = require ('axios')
 const graphql = require('graphql');
 //schema provides all of the code needed to structure you DB such as which fields are expected for objects in your DB and what the relationships between the differnt tables are.
 
-// current tutorial: https://www.udemy.com/graphql-with-react-course/learn/v4/t/lecture/6523066?start=0
 
 const {
   GraphQLObjectType,
@@ -85,6 +84,41 @@ const RootQuery = new GraphQLObjectType({
     }
   })
 
+  // When we work with mutations as opposed to queries, we have to create a whole new object
+  const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+      // Watch this space. In this case we are going to be adding a user which conforms to our UserType but when it comes to mutations this won't necessarily always be the case.
+    addUser: {
+      type: UserType,
+      // Here we are specifiying the information we expect to get back from our mutation. You can specify here as to whether or not is required by using GraphQLNonNull
+      args: {
+        firstName: { type: new GraphQLNonNull(GraphQLString) },
+        age: { type: new GraphQLNonNull(GraphQLInt) },
+        componyId: { type: GraphQLString }
+      },
+      // in a mutation the resolve function is where we actually add the information to the DB
+      resolve(parentValue, { firstName, age }) {
+        return axios.post('http://localhost:3000/users', { firstName, age })
+          .then(res => res.data)
+      }
+    },
+    deleteUser: {
+          type: UserType,
+          args: {
+            id: { type: new GraphQLNonNull(GraphQLString) }
+          },
+          resolve(parentValue, { id }) {
+            return axios.delete(`http://localhost:3000/users/${id}`)
+              .then(res => res.data)
+          }
+        }
+  }
+})
+
+
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation
 })
