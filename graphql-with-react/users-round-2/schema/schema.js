@@ -22,7 +22,7 @@ const CompanyType = new GraphQLObjectType({
       description: { type: GraphQLString },
       //This is where we set up the relationship between companies and users. There are likely to be many users asociated with any one company so in the `type` here we need to tell gql to expect a list, like so:
       users: {
-        //we can fetch all of the users asociated with a company (and vise verssa) only because we put a company ID on each one of our users in db.json
+        //we can fetch all of the users asociated with a company (and vise versa) only because we put a company ID on each one of our users in db.json
         type: new GraphQLList(UserType),
         //note the absence of args here because we are not fectching any new data.
         resolve(parentValue, args) {
@@ -60,7 +60,7 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    // fields on here allow us to access to data from the type directly. e.g. if we didn't have a compony defined on here we wouldn't be able to access data from CompanyType
+    // fields on here allow us to access to data from the type directly. e.g. if we didn't have a company defined on here we wouldn't be able to access data from CompanyType
     user: {
       type: UserType,
       //here we are saying that if you are looking for a user and you provide an ID we'll go grab it for you and return a string
