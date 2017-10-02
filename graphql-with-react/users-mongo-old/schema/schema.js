@@ -1,6 +1,6 @@
 const graphql = require('graphql')
 const mongoose = require('mongoose')
-const User = mongoose.model('user')
+const Users = mongoose.model('users')
 
 const {
   GraphQLObjectType,
@@ -14,31 +14,30 @@ const {
 
 // This is the usertype. It should be moved to another file down the line
 const UserType = new GraphQLObjectType({
-  name: 'User',
+  name: 'Users',
   fields: () => ({
     id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    age: { type: GraphQLInt }
+    firstName: { type: GraphQLString },
+    age: { type: GraphQLInt },
+    companyId: { type: GraphQLString }
   })
 })
 
 // This is the rootquery type
-const RootQuery = new GraphQLObjectType({
+const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
-  fields: {
-    user: {
+  fields: () => ({
+    users: {
       type: UserType,
-      args: { id: { type: GraphQLString } },
-      resolve(parentValue, args) {
-        user.findById(args, (err, user) => {
-          if (err) return err
-          return User.findById({ id })
-        })
+      args: { id: { type: GraphQLID } },
+      resolve: (parentValue, { id }) => {
+        return Users.findById(id)
+        }
       }
-    }
-  }
-})
+    })
+  })
+
 
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQueryType
 })

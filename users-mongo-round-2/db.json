@@ -1,0 +1,52 @@
+ {
+  "users": [
+    {
+      "firstName": "Alex",
+      "age": 10,
+      "componyId": "2"
+    },
+    {
+      "firstName": "Nick",
+      "age": 40,
+      "componyId": "2"
+    },
+    {
+      "firstName": "Stephen",
+      "age": 26,
+    }
+  ],
+  "contact": [
+    {
+      "tel": 123,
+      "email": "alex@alex.com",
+    },
+    {
+      "tel": "456",
+      "email": "rane@rane.com",
+    },
+    {
+      "tel": "789",
+      "email": "ben@ben.com",
+    }
+  ],
+  "userMeta": [
+    {
+      "bio": "Blah, blah, blah gypsies",
+      "location": "Romania"
+    },
+    {
+      "bio": "Blah, blah, blah lesbians",
+      "location": "Girl's School"
+    }
+  ],
+  "companies": [
+    {
+      "name": "Apple",
+      "description": "iphone"
+    },
+    {
+      "name": "Google",
+      "description": "search"
+    }
+  ]
+}

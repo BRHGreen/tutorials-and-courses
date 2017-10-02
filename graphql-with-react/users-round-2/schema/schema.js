@@ -45,7 +45,7 @@ const UserType = new GraphQLObjectType({
         type: CompanyType,
         //because we are grabbing data from elsewhere here, we need a resolve function.
         resolve(parentValue, args) {
-          //here you can console.log the parentValue and args(it will print out int the terminal). The parentValue is the CompanyType
+          //here you can console.log the parentValue and args (it will print out int the terminal). The parentValue is the CompanyType
           console.log('parentValue: ',parentValue, 'args: ', args);
           //here we are making a query to our DB. It will return all of the values, on the company userType so you can query any of these values.
           return axios.get(`http://localhost:3000/companies/${parentValue.companyId}`)

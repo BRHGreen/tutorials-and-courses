@@ -1,0 +1,5 @@
+require('./user')
+require('./company')
+require('./userMeta')
+require('./contactinfo')
+require('./test')

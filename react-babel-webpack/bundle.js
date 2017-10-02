@@ -9776,7 +9776,7 @@ var CommentBox = function (_Component) {
         _react2.default.createElement(
           'p',
           null,
-          'Yo, all seems to be working'
+          'Yo, all seems to be working yeah?'
         )
       );
     }
@@ -9785,7 +9785,7 @@ var CommentBox = function (_Component) {
   return CommentBox;
 }(_react.Component);
 
-_reactDom2.default.render(_react2.default.createElement(CommentBox, null), document.getElementById('#root'));
+_reactDom2.default.render(_react2.default.createElement(CommentBox, null), document.querySelector('#root'));
 
 /***/ }),
 /* 82 */

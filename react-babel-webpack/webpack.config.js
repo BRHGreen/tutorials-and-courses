@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // all of our development takes place here
-  entry: './app.js',
+  entry: './src/app.js',
   // everything we do will be compiled into bundle.js
   output: {
     path: __dirname,

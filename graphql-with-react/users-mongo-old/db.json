@@ -1,13 +1,11 @@
 {
   "users": [
     {
-      "id": "40",
       "firstName": "Alex",
       "age": 10,
       "componyId": "2"
     },
     {
-      "id": "41",
       "firstName": "Nick",
       "age": 40,
       "componyId": "2"

@@ -5,7 +5,7 @@ class CommentBox extends Component {
   render () {
     return (
       <div>
-        <p>Yo, all seems to be working</p>
+        <p>Yo, all seems to be working yeah?</p>
       </div>
     )
   }

@@ -23,7 +23,7 @@ const Person = new GraphQLObjectType({
       firstName: {
         type: GraphQLString,
         resolve(person) {
-          return person.lastName
+          return person.firstName
         }
       },
       lastName: {
@@ -35,12 +35,13 @@ const Person = new GraphQLObjectType({
       email: {
         type: GraphQLString,
         resolve(person) {
-          return person.lastName
+          return person.email
         }
       },
       posts: {
         type: new GraphQLList(Post),
         resolve(person) {
+          // the getPosts method is provided to use by sequalize as we set up a relationship between `person` and `posts` in db.js
           return person.getPosts();
         }
       }
@@ -69,6 +70,12 @@ const Post = new GraphQLObjectType({
         type: GraphQLString,
         resolve(post) {
           return post.content;
+        }
+      },
+      person: {
+        type: Person,
+        resolve(post) {
+          return post.getPerson()
         }
       }
     };
@@ -106,7 +113,7 @@ const Query = new GraphQLObjectType({
 
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
-  description: 'Functions to creat stuff',
+  description: 'Functions to create stuff',
   fields() {
     return {
       addPerson: {
